@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="buidl.js"></script>
+    <title>Build Paper Wallet Generator</title>
+  </head>
+  <body>
+    <button onclick="return getAddress();">Get New Address</button>
+    <div id = "addressOut"></div>
+    <div id = "pkOut"></div>
+    <script>
+    
+    function getAddress(){
+
+        var createNew = buidl.getNewAddress();
+
+        var addr = createNew.p2wpkh;
+
+        var pk = createNew.pk;
+
+        document.getElementById("addressOut").innerHTML = "Address: " + addr;
+
+        document.getElementById("pkOut").innerHTML= "Private Key: " + pk;
+    }    
+    </script>
+  </body>
+</html>
