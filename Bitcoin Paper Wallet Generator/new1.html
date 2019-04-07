@@ -3,25 +3,47 @@
   <head>
     <meta charset="UTF-8">
     <script src="buidl.js"></script>
+    <script src="qrcode.js"></script>
     <title>Build Paper Wallet Generator</title>
   </head>
   <body>
     <button onclick="return getAddress();">Get New Address</button>
-    <div id = "addressOut"></div>
-    <div id = "pkOut"></div>
+
+    <table width = "100%" ;border="1"  >
+    <tr>    
+        <td width = "50%"><div id= "qrAddr"></div></td>
+        <td width = "50%"><div id= "qrPk"></div></td>
+    </tr> 
+    <tr>   
+        <td width ="50"><div id = "addressOut"></div></td>
+        <td width="50"><div id = "pkOut"></div></td>
+    </tr>
+    </table>
     <script>
     
-    function getAddress(){
+        function getAddress(){
+            //variable createNew holds output
+            var createNew = buidl.getNewAddress();
+           //remember, create new is where address is generated 
+           //createNew contents hashed by 
+            var addr = createNew.p2wpkh;
+            
+            var pk = createNew.pk;
 
-        var createNew = buidl.getNewAddress();
+            document.getElementById("addressOut").innerHTML = "Address: " + addr;
 
-        var addr = createNew.p2wpkh;
+            document.getElementById("pkOut").innerHTML= "Private Key: " + pk;
 
-        var pk = createNew.pk;
+            
+            //each time the getAddress() function is called, before it populates, clear qr code
+            document.getElementById("qrAddr").innerHTML = "";
+            //each time the getAddress() function is called, before it populates, clear qr code
+            document.getElementById("qrPk").innerHTML = "";
 
-        document.getElementById("addressOut").innerHTML = "Address: " + addr;
+            new QRCode(document.getElementById("qrAddr"), addr);
+            new QRCode(document.getElementById("qrPk"), pk);
 
-        document.getElementById("pkOut").innerHTML= "Private Key: " + pk;
+
     }    
     </script>
   </body>
